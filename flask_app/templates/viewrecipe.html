@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Share - View Recipe</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="flex-container-fixed noborder">
+        <h1>Welcome, {{current_user['first_name']}}</h1>
+        <div>
+            <a href="/recipes" class="m-s">Back to Recipes</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="flex-container-fixed noborder">
+        <h1>{{recipe['name']}}</h1>
+        <h3 class="m-s">Posted by: {{recipe['posted_by']['first_name']}} {{recipe['posted_by']['last_name']}}</h3>
+    </div>
+    <div class="container set-font-size border">
+        <div class="flex-container-fixed noborder m-t-fixed">
+            <p class="flex-1 ml-50 align-items-top">Description:</p>
+            <p class="flex-3 mr-50">{{recipe['description']}}</p>
+        </div>
+        <div class="flex-container-fixed noborder m-t-fixed align-items-top">
+            <p class="flex-1 ml-50 align-items-top">Under 30 Minutes?</p>
+            {% if recipe['under'] == 1: %}
+            <p class="flex-3 mr-50">Yes</p>
+            {% else: %}
+            <p class="flex-3 mr-50">No</p>
+            {% endif %}
+        </div>
+        <div class="flex-container-fixed noborder m-t-fixed align-items-top">
+            <p class="flex-1 ml-50 align-items-top">Instructions</p>
+            <p class="flex-3 mr-50">{{recipe['instructions']}}</p>
+        </div>
+        <div class="flex-container-fixed noborder m-t-fixed mb-20 align-items-top">
+            <p class="flex-1 ml-50 align-items-top">Date Made:</p>
+            <p class="flex-3 mr-50">{{recipe['date_made']}}</p>
+        </div>
+    </div>
+</body>
+</html>

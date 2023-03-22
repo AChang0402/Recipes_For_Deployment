@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Share - Change Recipe</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="flex-container-fixed-end">
+        <a href="/recipes" class="m-s">Back to Recipes</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <div>
+        <div class = "flex-container-fixed m-t-fixed noborder"> 
+            <p class="header-text"> Edit Recipe</p>
+        </div>
+        <div class="container">
+        {% with messages = get_flashed_messages(category_filter=["recipe"]) %}
+            {% for message in messages %}
+            <p class="TAC">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+        </div>
+        <form action="/recipes/edit/{{recipe['id']}}/change" method="post">
+            <div class = "flex-container-fixed noborder set-font-size"> 
+                <div class="flex-3">
+                    <div class="flex m-t-fixed">
+                        <label for="name" class = "flex-1">Name</label>
+                        <input type="text" class = "flex-3 input-pad" id="name" name="name" value="{{recipe['name']}}">
+                    </div>
+                    <div class="flex m-t-fixed">
+                        <label for="description" class = "flex-1">Description</label>
+                        <textarea name="description" id="description" rows="2" class = "flex-3 input-pad" id="description">{{recipe['description']}}</textarea>
+                    </div>
+                    <div class="flex m-t-fixed">
+                        <label for="instructions" class = "flex-1">Instructions</label>
+                        <textarea name="instructions" id="instructions" rows="4" class = "flex-3 input-pad" id="instructions">{{recipe['instructions']}}</textarea>
+                    </div>
+                </div>
+                <div class="flex-2 flex-column">
+                    <div>
+                        <label for="date_made">Date Cooked/Made: </label>
+                        <br>
+                        <input type="date" name="date_made" id="date_made" value="{{recipe['date_made']}}">
+                    </div>
+                    <div>
+                        <p>Under 30 minutes?</p>
+                        <br>
+                        <div class="TAC">
+                            {% if recipe['under'] == 1: %}
+                            <input type="radio" name="under" id="under_yes" class="m-s" value="1" checked><label for="under_yes">Yes</label>
+                            <input type="radio" name="under" id="under_no" class="m-s" value="0"><label for="under_no">No</label>
+                            {% else: %}
+                            <input type="radio" name="under" id="under_yes" class="m-s" value="1"><label for="under_yes">Yes</label>
+                            <input type="radio" name="under" id="under_no" class="m-s" value="0" checked><label for="under_no">No</label>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-container-fixed-end"><button class="button">Submit</button></div>
+        </form>
+    </div>
+</body>
+</html>
